@@ -12,7 +12,8 @@ extension-pkg-whitelist=faiss_cpu
 # W0611: Unused import (если вы уверены, что импорты используются)
 # W0511: Fixme (для игнорирования TODO/FIXME комментариев, если они есть)
 # E0401: Unable to import (Временно отключаем, если проблема с импортами осталась после обновления requirements.txt)
-disable=C0114,C0115,C0116,C0301,W0611,W0511,E0401
+# E1120: No value for argument 'x' in method call (ложное срабатывание для faiss.Index.search)
+disable=C0114,C0115,C0116,C0301,W0611,W0511,E0401,E1120 # Убедитесь, что E1120 добавлено сюда
 
 [FORMAT]
 # Maximum number of characters on a single line.
