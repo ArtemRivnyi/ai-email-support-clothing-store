@@ -6,7 +6,7 @@ from typing import Optional, List
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-OLLAMA_API_BASE_URL = "http://localhost:11434/api" # Стандартная конечная точка API Ollama
+OLLAMA_API_BASE_URL = "http://ollama:11434/api" # Стандартная конечная точка API Ollama
 
 def get_embedding_ollama(text: str, model: str) -> Optional[List[float]]:
     """
