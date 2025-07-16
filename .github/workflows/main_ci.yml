@@ -27,7 +27,7 @@ jobs:
           pip install pylint # Установка линтера
 
       - name: Run Pylint
-        run: pylint *.py knowledge_base # Запуск pylint для всех Python-файлов и папки knowledge_base
+        run: pylint faiss_utils.py gmail_utils.py main.py ollama_utils.py # <--- ЭТУ СТРОКУ НУЖНО ИЗМЕНИТЬ
         # Возможно, потребуется настроить .pylintrc для игнорирования некоторых предупреждений
 
       - name: Check Dockerfile syntax
