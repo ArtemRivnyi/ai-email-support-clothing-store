@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+env/
+venv/
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Project specific files
+token.pickle
+old_token.pickle
+credentials.json
+embeddings/
