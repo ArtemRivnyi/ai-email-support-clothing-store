@@ -39,9 +39,7 @@ This project is an intelligent automated email support system designed for an on
 ## Project Structure
 Отлично! У вас уже есть GitHub аккаунт, и вы создали .gitignore. Это ускоряет процесс.
 
-Вот детальный README.md файл. Я включил все, что мы обсуждали, в структурированном и профессиональном виде, который будет полезен для работодателя.
 
-Скопируйте все содержимое ниже и сохраните его в файле с именем README.md в корневой папке вашего проекта.
 
 Markdown
 
