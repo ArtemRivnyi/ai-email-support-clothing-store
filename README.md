@@ -37,9 +37,6 @@ This project is an intelligent automated email support system designed for an on
 * **`logging`:** For comprehensive logging and debugging throughout the system.
 
 ## Project Structure
-Отлично! У вас уже есть GitHub аккаунт, и вы создали .gitignore. Это ускоряет процесс.
-
-
 
 Markdown
 
@@ -84,21 +81,26 @@ This project is an intelligent automated email support system designed for an on
 ## Project Structure
 
 .
-├── main.py                     # Main execution loop, coordinating all system modules.
-├── gmail_utils.py              # Handles all Gmail API interactions: authentication, fetching, sending, and marking emails.
-├── faiss_utils.py              # Manages the FAISS vector index, parses markdown knowledge base files, and performs similarity searches.
-├── ollama_utils.py             # Integrates with Ollama for LLM tasks: generating embeddings, classifying emails, and creating responses.
-├── .env                        # Environment variables (e.g., Google API credentials - excluded from Git by .gitignore for security).
-├── .gitignore                  # Specifies files and directories to be excluded from Git version control.
-├── README.md                   # Project documentation (this file).
-└── knowledge_base/             # Directory containing the Frequently Asked Questions (FAQ) in Markdown format.
-├── faq_1_password_reset.md # Example FAQ file for password recovery.
-├── faq_2_delivery_times.md # Example FAQ file for delivery times.
-├── faq_3_returns_policy.md # Example FAQ file for returns policy.
-├── faq_4_order_status.md   # Example FAQ file for order status.
-├── faq_5_payment_methods.md# Example FAQ file for payment methods.
-├── faq_6_size_chart.md     # Example FAQ file for size chart information.
-└── ... (Additional FAQ files can be added here following the specified format)
+├── .github/
+│   └── workflows/
+├── knowledge_base/
+│   ├── faq_1_password_reset.md
+│   ├── faq_2_delivery_times.md
+│   ├── faq_3_returns_policy.md
+│   ├── faq_4_order_status.md
+│   ├── faq_5_payment_methods.md
+│   ├── faq_6_size_chart.md
+│   └── ... (Additional FAQ files can be added here following the specified format)
+├── .gitignore
+├── .pylintrc
+├── Dockerfile
+├── README.md
+├── docker-compose.yml
+├── faiss_utils.py
+├── gmail_utils.py
+├── main.py
+├── ollama_utils.py
+└── requirements.txt
 
 ## Setup and Installation
 
