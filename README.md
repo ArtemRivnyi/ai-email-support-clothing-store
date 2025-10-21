@@ -1,96 +1,51 @@
-# AI-Powered Email Support System for Online Clothing Store
+_# 🤖 AI-Powered Email Support for Clothing Store
 
-[![GitHub last commit](https://img.shields.io/github/last-commit/artemRivnyi/ai-email-support-clothing-store)](https://github.com/artemRivnyi/ai-email-support-clothing-store/commits/main)
-[![GitHub top language](https://img.shields.io/github/languages/top/artemRivnyi/ai-email-support-clothing-store)](https://github.com/artemRivnyi/ai-email-support-clothing-store)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+**AI-Powered Email Support** is an intelligent, automated system designed for e-commerce. Built with **Python**, **Ollama**, and the **Gmail API**, it classifies customer emails, retrieves relevant information from a knowledge base, and generates personalized responses, streamlining customer service workflows.
 
-## Overview
+## 📝 Table of Contents
 
-This project is an intelligent automated email support system designed for an online clothing store. It leverages Large Language Models (LLMs) and vector databases to classify incoming customer emails, find relevant answers from a structured knowledge base, and generate personalized responses. The system aims to streamline customer service operations by automating responses to frequently asked questions (FAQs), allowing human agents to focus on more complex or nuanced inquiries.
+* [✨ Features](#-features)
+* [🛠️ Technologies Used](#-technologies-used)
+* [🗂️ Project Structure](#-project-structure)
+* [🚀 Quick Start](#-quick-start)
+    * [1️⃣ Prerequisites](#1-prerequisites)
+    * [2️⃣ Clone the Repository](#2-clone-the-repository)
+    * [3️⃣ Configure Environment](#3-configure-environment)
+    * [4️⃣ Run the Application](#4-run-the-application)
+* [🔧 How It Works](#-how-it-works)
+* [🧠 Customization & Expansion](#-customization--expansion)
+* [📄 License](#-license)
+* [🧰 Maintainer](#-maintainer)
 
-## Key Features
+## ✨ Features
 
-* **Email Processing & Management:** Seamlessly connects with Gmail API to fetch unread customer emails, send automated replies, and mark processed emails as read. This ensures a clean and efficient inbox workflow.
-* **Intelligent Email Classification:** Utilizes a locally-run Large Language Model (LLM) via Ollama (`gemma:7b` with a fine-tuned prompt) to accurately determine if an incoming email is a genuine customer support inquiry relevant to the online clothing store's domain (e.g., orders, delivery, returns, sizing, product availability, website issues). This crucial step filters out spam, marketing, or unrelated inquiries (like tech support or restaurant bookings) with high precision.
-* **Dynamic Knowledge Base:**
-    * **Markdown-based FAQs:** The knowledge base is built from easily editable Markdown (`.md`) files stored in the `knowledge_base/` directory. Each FAQ entry is structured with distinct "Question", "Answer", and "Keywords" sections.
-    * **Automated Indexing:** The system automatically parses these Markdown files, extracts the relevant content, and processes it into a searchable format.
-* **Efficient Similarity Search (RAG):**
-    * **Vector Embeddings:** Transforms both the incoming email content and the FAQ entries into high-dimensional numerical vectors (embeddings) using the `all-minilm` model via Ollama.
-    * **FAISS Integration:** Employs FAISS (Facebook AI Similarity Search) to create and utilize an optimized vector index. This allows for lightning-fast retrieval of the most semantically similar FAQ entry to the customer's query.
-    * **Adjustable Similarity Threshold:** A configurable threshold ensures that only highly relevant answers are considered, preventing the system from responding with inaccurate information.
-* **Context-Aware Response Generation:** Leverages Ollama (e.g., `gemma:7b`) to synthesize a natural, polite, and comprehensive reply. The LLM's prompt is specifically engineered to generate answers based *only* on the retrieved knowledge base information and the original customer email, minimizing "hallucinations" and ensuring factual accuracy within the store's context.
-* **Scalability & Local Control:** By using Ollama, the project can run LLMs locally, offering greater control over data privacy and potentially reducing API costs, while allowing easy scalability by adding more FAQ documents.
+*   🧠 **Intelligent Email Classification**: Uses a local LLM (via Ollama) to filter genuine customer inquiries from spam or irrelevant messages.
+*   📫 **Automated Gmail Integration**: Fetches unread emails, sends replies, and marks threads as read using the Gmail API.
+*   📚 **Dynamic Knowledge Base**: Builds a searchable knowledge base from simple Markdown files, allowing for easy updates and expansion.
+*   ⚡ **Efficient Similarity Search**: Leverages **FAISS** and vector embeddings (`all-minilm`) for rapid and accurate retrieval of relevant FAQ answers (RAG).
+*   🤖 **Context-Aware Response Generation**: Synthesizes natural, accurate responses using a generative LLM (`gemma:7b`) based only on retrieved knowledge, minimizing hallucinations.
+*   🔒 **Local & Scalable**: Runs LLMs locally with Ollama for enhanced data privacy, reduced costs, and easy scalability.
 
-## Technologies Used
+## 🛠️ Technologies Used
 
-* **Python 3.x:** The core programming language.
-* **Ollama:** A powerful tool for running and managing open-source Large Language Models locally.
-    * `all-minilm`: Used for generating highly effective text embeddings.
-    * `gemma:7b` (or similar): Used for intelligent email classification and generating human-like responses.
-* **FAISS (Facebook AI Similarity Search):** An efficient library for similarity search and clustering of dense vectors, enabling fast retrieval from the knowledge base.
-* **Google Gmail API:** Facilitates programmatic interaction with Gmail accounts for email operations.
-* **`google-auth-oauthlib`, `google-api-python-client`:** Python client libraries for Google APIs, handling OAuth 2.0 authorization.
-* **`python-dotenv`:** For secure management of environment variables (e.g., API keys).
-* **Markdown:** Used as a simple, human-readable format for the knowledge base.
-* **`requests` & `json`:** For direct HTTP communication with the Ollama API endpoint.
-* **`logging`:** For comprehensive logging and debugging throughout the system.
+The project is built upon a robust stack of modern technologies:
 
-## Project Structure
+*   **Python**: Version 3.8+ for core application logic.
+*   **Ollama**: For running and managing open-source LLMs locally (`gemma:7b`, `all-minilm`).
+*   **FAISS**: For efficient, high-speed vector similarity search.
+*   **Google Gmail API**: For programmatic email fetching and sending.
+*   **Google OAuth**: For secure authentication with Google services.
+*   **Docker & Docker Compose**: For containerization and easy deployment.
+*   **Markdown**: As the format for the knowledge base files.
 
-Markdown
+## 🗂️ Project Structure
 
-# AI-Powered Email Support System for Online Clothing Store
-
-[![GitHub last commit](https://img.shields.io/github/last-commit/artemRivnyi/ai-email-support-clothing-store)](https://github.com/artemRivnyi/ai-email-support-clothing-store/commits/main)
-[![GitHub top language](https://img.shields.io/github/languages/top/artemRivnyi/ai-email-support-clothing-store)](https://github.com/artemRivnyi/ai-email-support-clothing-store)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-## Overview
-
-This project is an intelligent automated email support system designed for an online clothing store. It leverages Large Language Models (LLMs) and vector databases to classify incoming customer emails, find relevant answers from a structured knowledge base, and generate personalized responses. The system aims to streamline customer service operations by automating responses to frequently asked questions (FAQs), allowing human agents to focus on more complex or nuanced inquiries.
-
-## Key Features
-
-* **Email Processing & Management:** Seamlessly connects with Gmail API to fetch unread customer emails, send automated replies, and mark processed emails as read. This ensures a clean and efficient inbox workflow.
-* **Intelligent Email Classification:** Utilizes a locally-run Large Language Model (LLM) via Ollama (`gemma:7b` with a fine-tuned prompt) to accurately determine if an incoming email is a genuine customer support inquiry relevant to the online clothing store's domain (e.g., orders, delivery, returns, sizing, product availability, website issues). This crucial step filters out spam, marketing, or unrelated inquiries (like tech support or restaurant bookings) with high precision.
-* **Dynamic Knowledge Base:**
-    * **Markdown-based FAQs:** The knowledge base is built from easily editable Markdown (`.md`) files stored in the `knowledge_base/` directory. Each FAQ entry is structured with distinct "Question", "Answer", and "Keywords" sections.
-    * **Automated Indexing:** The system automatically parses these Markdown files, extracts the relevant content, and processes it into a searchable format.
-* **Efficient Similarity Search (RAG):**
-    * **Vector Embeddings:** Transforms both the incoming email content and the FAQ entries into high-dimensional numerical vectors (embeddings) using the `all-minilm` model via Ollama.
-    * **FAISS Integration:** Employs FAISS (Facebook AI Similarity Search) to create and utilize an optimized vector index. This allows for lightning-fast retrieval of the most semantically similar FAQ entry to the customer's query.
-    * **Adjustable Similarity Threshold:** A configurable threshold ensures that only highly relevant answers are considered, preventing the system from responding with inaccurate information.
-* **Context-Aware Response Generation:** Leverages Ollama (e.g., `gemma:7b`) to synthesize a natural, polite, and comprehensive reply. The LLM's prompt is specifically engineered to generate answers based *only* on the retrieved knowledge base information and the original customer email, minimizing "hallucinations" and ensuring factual accuracy within the store's context.
-* **Scalability & Local Control:** By using Ollama, the project can run LLMs locally, offering greater control over data privacy and potentially reducing API costs, while allowing easy scalability by adding more FAQ documents.
-
-## Technologies Used
-
-* **Python 3.x:** The core programming language.
-* **Ollama:** A powerful tool for running and managing open-source Large Language Models locally.
-    * `all-minilm`: Used for generating highly effective text embeddings.
-    * `gemma:7b` (or similar): Used for intelligent email classification and generating human-like responses.
-* **FAISS (Facebook AI Similarity Search):** An efficient library for similarity search and clustering of dense vectors, enabling fast retrieval from the knowledge base.
-* **Google Gmail API:** Facilitates programmatic interaction with Gmail accounts for email operations.
-* **`google-auth-oauthlib`, `google-api-python-client`:** Python client libraries for Google APIs, handling OAuth 2.0 authorization.
-* **`python-dotenv`:** For secure management of environment variables (e.g., API keys).
-* **Markdown:** Used as a simple, human-readable format for the knowledge base.
-* **`requests` & `json`:** For direct HTTP communication with the Ollama API endpoint.
-* **`logging`:** For comprehensive logging and debugging throughout the system.
-
-## Project Structure
-
-.
-├── .github/
-│   └── workflows/
+```
+. 
+├── .github/ │ └── workflows/
 ├── knowledge_base/
-│   ├── faq_1_password_reset.md
-│   ├── faq_2_delivery_times.md
-│   ├── faq_3_returns_policy.md
-│   ├── faq_4_order_status.md
-│   ├── faq_5_payment_methods.md
-│   ├── faq_6_size_chart.md
-│   └── ... (Additional FAQ files can be added here following the specified format)
+│ ├── faq_1_password_reset.md
+│ └── ... (more FAQ files)
 ├── .gitignore
 ├── .pylintrc
 ├── Dockerfile
@@ -101,118 +56,89 @@ This project is an intelligent automated email support system designed for an on
 ├── main.py
 ├── ollama_utils.py
 └── requirements.txt
+```
 
-## Setup and Installation
+## 🚀 Quick Start
 
-### Prerequisites
+Follow these steps to get the AI Email Support system up and running.
 
-Before running the application, ensure you have the following installed and configured:
+### 1️⃣ Prerequisites
 
-1.  **Python 3.8+**: Download from [python.org](https://www.python.org/downloads/).
-2.  **Git**: Download from [git-scm.com](https://git-scm.com/downloads).
-3.  **Ollama Installation**:
-    * Download and install Ollama from the official website: [ollama.com](https://ollama.com/).
-    * After installation, pull the required LLM models using your terminal:
-        ```bash
-        ollama pull all-minilm
-        ollama pull gemma:7b # Or choose another compatible generative model like 'llama2'
-        ```
-    * Verify that the Ollama server is running (it usually starts automatically).
-4.  **Google Cloud Project & Gmail API Credentials**:
-    * Go to the [Google Cloud Console](https://console.cloud.google.com/).
-    * Create a new Google Cloud Project.
-    * Navigate to **APIs & Services > Library** and enable the **Gmail API**.
-    * Go to **APIs & Services > OAuth consent screen**:
-        * Set **User type** to `External`.
-        * Configure the consent screen details (App name, support email, developer contact information).
-        * **Crucially, add the Google email address you plan to use for the bot to the "Test users" section.** This allows your application to access that specific email account during development without needing full verification.
-    * Go to **APIs & Services > Credentials**:
-        * Click `+ CREATE CREDENTIALS` and select **OAuth client ID**.
-        * Choose **Desktop app** as the Application type.
-        * Download the `credentials.json` file.
-        * Open this downloaded `credentials.json` file. You will find your `client_id` and `client_secret` within it.
+Ensure you have the following installed and configured:
 
-### Installation Steps
+*   **Python 3.8+**
+*   **Git**
+*   **Docker** & **Docker Compose**
+*   **Ollama**: Install from [ollama.com](https://ollama.com) and pull the required models:
+    ```shell
+    ollama pull all-minilm
+    ollama pull gemma:7b
+    ```
+*   **Google Cloud Project**: 
+    1.  Enable the **Gmail API** in the [Google Cloud Console](https://console.cloud.google.com/).
+    2.  Configure the **OAuth consent screen** as an "External" user type and add your email as a "Test user".
+    3.  Create **OAuth 2.0 Client IDs** for a "Desktop app" and download the `credentials.json` file.
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/artemRivnyi/ai-email-support-clothing-store.git](https://github.com/artemRivnyi/ai-email-support-clothing-store.git)
-    cd ai-email-support-clothing-store
+### 2️⃣ Clone the Repository
+
+Begin by cloning the project to your local machine:
+
+```shell
+git clone https://github.com/ArtemRivnyi/ai-email-support-clothing-store.git
+cd ai-email-support-clothing-store
+```
+
+### 3️⃣ Configure Environment
+
+1.  **Place Credentials**: Move the downloaded `credentials.json` file into the root directory of the project.
+
+2.  **Set Environment Variables**: Create a `.env` file in the root directory and add the `client_id` and `client_secret` from your `credentials.json` file:
+    ```dotenv
+    GOOGLE_CLIENT_ID="YOUR_CLIENT_ID_HERE"
+    GOOGLE_CLIENT_SECRET="YOUR_CLIENT_SECRET_HERE"
     ```
 
-2.  **Create a virtual environment (highly recommended):**
-    ```bash
+3.  **Install Dependencies**: Create a virtual environment and install the required packages.
+    ```shell
     python -m venv venv
-    # On Windows:
-    .\venv\Scripts\activate
-    # On macOS/Linux:
-    source venv/bin/activate
-    ```
-
-3.  **Install Python dependencies:**
-    ```bash
+    source venv/bin/activate  # On macOS/Linux
+    # .\venv\Scripts\activate  # On Windows
     pip install -r requirements.txt
     ```
-    *If `requirements.txt` is missing, you can create it by running `pip freeze > requirements.txt` or manually adding the following to a new `requirements.txt` file:*
-    ```
-    google-api-python-client
-    google-auth-oauthlib
-    python-dotenv
-    ollama # The official Ollama Python client library
-    faiss-cpu # Or faiss-gpu if you have a compatible NVIDIA GPU and CUDA setup
-    numpy
-    ```
 
-4.  **Set up environment variables:**
-    * Create a new file named `.env` in the root directory of your project (where `main.py` is located).
-    * Add your Google API `client_id` and `client_secret` to this file:
-        ```env
-        GOOGLE_CLIENT_ID="YOUR_CLIENT_ID_FROM_GOOGLE_CLOUD_CONSOLE"
-        GOOGLE_CLIENT_SECRET="YOUR_CLIENT_SECRET_FROM_GOOGLE_CLOUD_CONSOLE"
-        ```
-    * **Important:** This `.env` file is listed in `.gitignore` and **will not be committed to your GitHub repository**, ensuring your sensitive credentials remain private.
+### 4️⃣ Run the Application
 
-5.  **Prepare the Knowledge Base:**
-    * Ensure your `.md` FAQ files are placed inside the `knowledge_base/` directory.
-    * Each file **must** contain sections for `# Вопрос`, `# Ответ`, and `# Ключевые слова` (note the space after `#`). Example:
-        ```markdown
-        # Вопрос
-        Как я могу отследить свой заказ?
+Execute the main script. On the first run, you will be prompted to authenticate with Google.
 
-        # Ответ
-        Вы можете отслеживать статус вашего заказа, войдя в свой личный кабинет на нашем сайте. ...
+```shell
+python main.py
+```
 
-        # Ключевые слова
-        отследить, заказ, статус, доставка, где мой заказ
-        ```
+The system will start checking for new emails and processing them automatically. Watch the console for detailed logs.
 
-## Running the System
+## 🔧 How It Works
 
-1.  **Ensure the Ollama server is actively running** in the background (check your system tray or run `ollama serve` in a dedicated terminal window).
-2.  **Run the main script from your project's root directory:**
-    ```bash
-    python main.py
-    ```
-3.  **Initial Gmail API Authorization (First Run):**
-    * The very first time you execute `main.py`, a web browser window will automatically open. This is for you to authorize your application's access to Gmail.
-    * Follow the prompts, log in with the Google account you added as a "Test user" in the Google Cloud Console.
-    * **Crucially, carefully review and grant ALL requested permissions** (specifically `gmail.readonly`, `gmail.send`, `gmail.modify` scope).
-    * Upon successful authorization, a `token.pickle` file will be created in your project's root directory. This file stores your authentication tokens, allowing subsequent runs to bypass the browser authorization step.
-    * **Troubleshooting `Insufficient Permissions`:** If you ever modify the `SCOPES` in `gmail_utils.py` or encounter "Insufficient Permissions" errors, you **must delete the `token.pickle` file** and re-run `main.py` to trigger a fresh re-authorization with the updated permissions.
+1.  **Fetch Emails**: Periodically scans the Gmail account for unread messages.
+2.  **Classify Intent**: Uses `gemma:7b` to determine if an email is a relevant customer inquiry.
+3.  **Create Embeddings**: Converts the email content into a vector embedding using `all-minilm`.
+4.  **Search Knowledge**: Performs a FAISS similarity search to find the best matching FAQ from the knowledge base.
+5.  **Generate Response**: If a match is found, `gemma:7b` crafts a personalized response based on the retrieved information.
+6.  **Send and Archive**: The reply is sent, and the original email is marked as read.
 
-The system will now begin its operation, periodically checking your inbox for unread emails. All processing steps, including classification, search, response generation, and email actions, will be logged to your console.
+## 🧠 Customization & Expansion
 
-## Customization and Further Development
+*   **Add Knowledge**: Create new `.md` files in the `knowledge_base` directory. The system will automatically index them on restart.
+*   **Change Models**: Update the model names in `ollama_utils.py` to use other LLMs supported by Ollama.
+*   **Adjust Threshold**: Modify the `SIMILARITY_THRESHOLD` in `main.py` to control response sensitivity.
 
-* **LLM Model Selection:** Experiment with different Ollama models (e.g., `llama2`, `mistral`, `codellama`) by modifying the `model` parameters in `ollama_utils.py` to find the best balance of performance and accuracy for your needs.
-* **Similarity Threshold Tuning:** Adjust the `SIMILARITY_THRESHOLD` value in `faiss_utils.py`. This parameter directly influences how "close" an email's query must be to a knowledge base entry for an automated answer to be generated. Fine-tune this based on observed accuracy.
-* **Prompt Engineering:** The prompts within `ollama_utils.py` for `classify_email` and `generate_response_ollama` are critical for the system's performance. Continuous refinement of these prompts can significantly enhance classification precision and the quality of generated responses.
-* **Email Filtering & Queries:** The `query` parameter in `get_new_emails` within `gmail_utils.py` can be modified to implement more sophisticated email filtering logic (e.g., specific labels, senders, or keywords).
-* **Error Handling & Fallbacks:** Implement more robust error handling for external API calls and add more sophisticated fallback mechanisms (e.g., forwarding unanswerable emails to a human agent, notifying administrators).
-* **Additional Features:** Consider integrating with customer relationship management (CRM) systems, adding sentiment analysis, or incorporating multilingual support.
+## 📄 License
 
-## Author
+This project is licensed under the MIT License - see the `LICENSE` file for details.
 
-www.linkedin.com/in/artem-rivnyi
+## 🧰 Maintainer
 
----
+**Artem Rivnyi** — Junior Technical Support / DevOps Enthusiast
+
+*   📧 [artemrivnyi@outlook.com](mailto:artemrivnyi@outlook.com)
+*   🔗 [LinkedIn](https://www.linkedin.com/in/artemrivnyi/)
+
