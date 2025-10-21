@@ -4,18 +4,18 @@
 
 ## 📝 Table of Contents
 
-* [✨ Features](#-features)
-* [🛠️ Technologies Used](#-technologies-used)
-* [🗂️ Project Structure](#-project-structure)
-* [🚀 Quick Start](#-quick-start)
-    * [1️⃣ Prerequisites](#1-prerequisites)
-    * [2️⃣ Clone the Repository](#2-clone-the-repository)
-    * [3️⃣ Configure Environment](#3-configure-environment)
-    * [4️⃣ Run the Application](#4-run-the-application)
-* [🔧 How It Works](#-how-it-works)
-* [🧠 Customization & Expansion](#-customization--expansion)
-* [📄 License](#-license)
-* [🧰 Maintainer](#-maintainer)
+*   [✨ Features](#-features)
+*   [🛠️ Technologies Used](#️-technologies-used)
+*   [🗂️ Project Structure](#️-project-structure)
+*   [🚀 Quick Start](#quick-start)
+    *   [Prerequisites](#prerequisites)
+    *   [Clone the Repository](#clone-the-repository)
+    *   [Configure Environment](#configure-environment)
+    *   [Run the Application](#run-the-application)
+*   [🔧 How It Works](#-how-it-works)
+*   [🧠 Customization & Expansion](#-customization--expansion)
+*   [📄 License](#-license)
+*   [🧰 Maintainer](#-maintainer)
 
 ## ✨ Features
 
@@ -40,46 +40,47 @@ The project is built upon a robust stack of modern technologies:
 
 ## 🗂️ Project Structure
 
-```
-. 
-├── .github/ │ └── workflows/
-├── knowledge_base/
-│ ├── faq_1_password_reset.md
-│ └── ... (more FAQ files)
-├── .gitignore
-├── .pylintrc
-├── Dockerfile
-├── README.md
-├── docker-compose.yml
-├── faiss_utils.py
-├── gmail_utils.py
-├── main.py
-├── ollama_utils.py
-└── requirements.txt
-```
+    . 
+    ├── .github/ │ └── workflows/
+    ├── knowledge_base/
+    │ ├── faq_1_password_reset.md
+    │ └── ... (more FAQ files)
+    ├── .gitignore
+    ├── .pylintrc
+    ├── Dockerfile
+    ├── README.md
+    ├── docker-compose.yml
+    ├── faiss_utils.py
+    ├── gmail_utils.py
+    ├── main.py
+    ├── ollama_utils.py
+    └── requirements.txt
+    
 
 ## 🚀 Quick Start
 
 Follow these steps to get the AI Email Support system up and running.
 
-### 1️⃣ Prerequisites
+### Prerequisites
 
 Ensure you have the following installed and configured:
 
 *   **Python 3.8+**
 *   **Git**
 *   **Docker** & **Docker Compose**
-*   **Ollama**: Install from [ollama.com](https://ollama.com) and pull the required models:
+*   **Ollama**: Install from [ollama.com]() and pull the required models:
+    
     ```shell
     ollama pull all-minilm
     ollama pull gemma:7b
     ```
-*   **Google Cloud Project**: 
-    1.  Enable the **Gmail API** in the [Google Cloud Console](https://console.cloud.google.com/).
+    
+*   **Google Cloud Project**:
+    1.  Enable the **Gmail API** in the [Google Cloud Console]().
     2.  Configure the **OAuth consent screen** as an "External" user type and add your email as a "Test user".
     3.  Create **OAuth 2.0 Client IDs** for a "Desktop app" and download the `credentials.json` file.
 
-### 2️⃣ Clone the Repository
+### Clone the Repository
 
 Begin by cloning the project to your local machine:
 
@@ -88,25 +89,28 @@ git clone https://github.com/ArtemRivnyi/ai-email-support-clothing-store.git
 cd ai-email-support-clothing-store
 ```
 
-### 3️⃣ Configure Environment
+### Configure Environment
 
 1.  **Place Credentials**: Move the downloaded `credentials.json` file into the root directory of the project.
-
+    
 2.  **Set Environment Variables**: Create a `.env` file in the root directory and add the `client_id` and `client_secret` from your `credentials.json` file:
+    
     ```dotenv
     GOOGLE_CLIENT_ID="YOUR_CLIENT_ID_HERE"
     GOOGLE_CLIENT_SECRET="YOUR_CLIENT_SECRET_HERE"
     ```
-
+    
 3.  **Install Dependencies**: Create a virtual environment and install the required packages.
+    
     ```shell
     python -m venv venv
     source venv/bin/activate  # On macOS/Linux
     # .\venv\Scripts\activate  # On Windows
     pip install -r requirements.txt
     ```
+    
 
-### 4️⃣ Run the Application
+### Run the Application
 
 Execute the main script. On the first run, you will be prompted to authenticate with Google.
 
@@ -140,5 +144,4 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Artem Rivnyi** — Junior Technical Support / DevOps Enthusiast
 
 *   📧 [artemrivnyi@outlook.com](mailto:artemrivnyi@outlook.com)
-*   🔗 [LinkedIn](https://www.linkedin.com/in/artemrivnyi/)
-
+*   🔗 [LinkedIn](https://www.linkedin.com/in/artem-rivnyi/)
