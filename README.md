@@ -1,4 +1,4 @@
-_# 🤖 AI-Powered Email Support for Clothing Store
+# 🤖 AI-Powered Email Support for Clothing Store
 
 **AI-Powered Email Support** is an intelligent, automated system designed for e-commerce. Built with **Python**, **Ollama**, and the **Gmail API**, it classifies customer emails, retrieves relevant information from a knowledge base, and generates personalized responses, streamlining customer service workflows.
 
