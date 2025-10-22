@@ -144,4 +144,5 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Artem Rivnyi** — Junior Technical Support / DevOps Enthusiast
 
 *   📧 [artemrivnyi@outlook.com](mailto:artemrivnyi@outlook.com)
+*   **Email:** [artemrivnyi@outlook.com](mailto:artemrivnyi@outlook.com)
 *   🔗 [LinkedIn](https://www.linkedin.com/in/artem-rivnyi/)
