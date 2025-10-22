@@ -1,25 +1,33 @@
 # 📦 AI Email Support — Beta Branch
 
-Ветка `beta` содержит полностью рабочую и стабильную реализацию сервиса поддержки по электронной почте на базе ИИ.
+The `beta` branch contains a fully functional and stable implementation of the AI-powered email support service.
 
-## 🆚 Отличия от `main`
+## 🆚 Differences from `main`
 
-- ✅ Стабильная сборка и деплой Docker-контейнеров
-- ✅ Рабочая интеграция с Gmail API и OAuth2
-- ✅ FAISS индекс и база знаний корректно загружаются
-- ✅ Подключён Ollama с моделями `gemma:7b` и `all-minilm`
-- ✅ Генерация ответов по семантике письма
-- ✅ Логи обрабатываются в реальном времени
+- ✅ Stable Docker build and deployment  
+- ✅ Working integration with Gmail API and OAuth2  
+- ✅ FAISS index and knowledge base load correctly  
+- ✅ Ollama connected with `gemma:7b` and `all-minilm` models  
+- ✅ Response generation based on email semantics  
+- ✅ Logs processed in real-time  
 
-## 🎯 Цель ветки
+## 🎯 Branch Goal
 
-Сохранить текущую реализацию как эталонную и стабильную, перед переходом к разработке новых функций в `alpha`.
+Preserve the current implementation as a reference and stable version before moving on to developing new features in `alpha`.
 
-## 🚀 Следующая ветка: `alpha`
+## 🚀 Next Branch: `alpha`
 
-Во `ветке alpha` будет происходить разработка:
+The `alpha` branch will focus on development of:  
+- Prometheus monitoring  
+- File-based logging  
+- Knowledge base expansion  
+- Web interface and REST API
+  
+## 🧰 Maintainer
 
-- Prometheus-мониторинга
-- Логирование в файл
-- Расширение базы знаний
-- Веб-интерфейс и REST API
+**Artem Rivnyi** — Junior Technical Support / DevOps Enthusiast
+
+* **Email:** [artemrivnyi@outlook.com](mailto:artemrivnyi@outlook.com)  
+* 🔗 [LinkedIn](https://www.linkedin.com/in/artem-rivnyi/)  
+* 🌐 [Personal Projects](https://personal-page-devops.onrender.com/)  
+* 💻 [GitHub](https://github.com/ArtemRivnyi)
