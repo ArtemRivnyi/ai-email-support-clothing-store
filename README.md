@@ -1,5 +1,11 @@
 # 🤖 AI-Powered Email Support for Clothing Store
 
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Ollama](https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white)](https://ollama.com/)
+[![FAISS](https://img.shields.io/badge/FAISS-000000?style=for-the-badge&logo=facebook&logoColor=white)](https://github.com/facebookresearch/faiss)
+[![Gmail API](https://img.shields.io/badge/Gmail%20API-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](https://developers.google.com/gmail/api)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **AI-Powered Email Support** is an intelligent, automated system designed for e-commerce. Built with **Python**, **Ollama**, and the **Gmail API**, it classifies customer emails, retrieves relevant information from a knowledge base, and generates personalized responses, streamlining customer service workflows.
 
 ## 📝 Table of Contents
