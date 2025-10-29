@@ -12,7 +12,6 @@
 
 *   [✨ Features](#-features)
 *   [🛠️ Technologies Used](#️-technologies-used)
-*   [🗂️ Project Structure](#️-project-structure)
 *   [🚀 Quick Start](#quick-start)
     *   [Prerequisites](#prerequisites)
     *   [Clone the Repository](#clone-the-repository)
@@ -43,25 +42,6 @@ The project is built upon a robust stack of modern technologies:
 *   **Google OAuth**: For secure authentication with Google services.
 *   **Docker & Docker Compose**: For containerization and easy deployment.
 *   **Markdown**: As the format for the knowledge base files.
-
-## 🗂️ Project Structure
-
-    . 
-    ├── .github/ │ └── workflows/
-    ├── knowledge_base/
-    │ ├── faq_1_password_reset.md
-    │ └── ... (more FAQ files)
-    ├── .gitignore
-    ├── .pylintrc
-    ├── Dockerfile
-    ├── README.md
-    ├── docker-compose.yml
-    ├── faiss_utils.py
-    ├── gmail_utils.py
-    ├── main.py
-    ├── ollama_utils.py
-    └── requirements.txt
-    
 
 ## 🚀 Quick Start
 
