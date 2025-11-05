@@ -1,6 +1,6 @@
 # 🤖 AI-Powered Email Support for Clothing Store
 
-[![CI Status](https://github.com/ArtemRivnyi/ai-email-support-clothing-store/actions/workflows/main.yml/badge.svg )](https://github.com/ArtemRivnyi/ai-email-support-clothing-store/actions )
+[![CI Status](https://github.com/ArtemRivnyi/ai-email-support-clothing-store/actions/workflows/main_ci.yml/badge.svg )](https://github.com/ArtemRivnyi/ai-email-support-clothing-store/actions )
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white )
 ![Ollama](https://img.shields.io/badge/Local%20LLM-Ollama-000000?style=flat-square&logo=ollama&logoColor=white )
