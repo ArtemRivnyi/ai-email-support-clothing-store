@@ -4,7 +4,6 @@ google-auth-httplib2
 google-auth-oauthlib
 python-dotenv
 requests
-faiss-cpu
 numpy
 redis
 rq
@@ -17,3 +16,5 @@ flask-limiter
 pytest
 pytest-cov
 fakeredis
+pylint
+bandit
