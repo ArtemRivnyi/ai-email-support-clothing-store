@@ -13,3 +13,4 @@ structlog
 prometheus-client
 gunicorn
 flask
+flask-limiter

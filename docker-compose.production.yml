@@ -68,6 +68,20 @@ services:
       ollama:
         condition: service_healthy
 
+  dashboard:
+    build: ./dashboard
+    restart: always
+    ports:
+      - "8501:8501"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - API_URL=http://api:5000
+    depends_on:
+      redis:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+
   prometheus:
     image: prom/prometheus:latest
     restart: always

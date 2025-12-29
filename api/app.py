@@ -5,7 +5,10 @@ import os
 import redis
 import requests
 
+from middleware.rate_limiter import init_rate_limiter
+
 app = Flask(__name__)
+limiter = init_rate_limiter(app)
 
 # Metrics
 EMAILS_PROCESSED = Counter('emails_processed_total', 'Total emails processed', ['status'])
