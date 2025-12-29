@@ -60,7 +60,7 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: .
-        push: true
+        push: false
         tags: artemrivnyi/ai-email-api:latest,artemrivnyi/ai-email-api:${{ github.sha }}
     # Repeat for worker and dashboard...
 
