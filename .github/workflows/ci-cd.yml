@@ -29,7 +29,7 @@ jobs:
         python -m pytest tests/unit/ --cov=services --cov-report=xml
     - name: Run Integration Tests
       run: |
-        pytest tests/integration/
+        python -m pytest tests/integration/
 
   security:
     runs-on: ubuntu-latest
