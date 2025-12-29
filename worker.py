@@ -7,7 +7,10 @@ from services.gmail_service import get_new_emails, get_gmail_service
 from utils.logger import get_logger
 from dotenv import load_dotenv
 
+from config.config import Config
+
 load_dotenv()
+Config.validate()
 logger = get_logger(__name__)
 
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')

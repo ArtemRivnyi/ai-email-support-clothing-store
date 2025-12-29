@@ -34,47 +34,75 @@ if page == "Dashboard":
     st.title("📊 System Dashboard")
     
     # Metrics
+    # Metrics
     col1, col2, col3, col4 = st.columns(4)
     
-    # Mock data for now (replace with real Redis/Prometheus queries later)
-    queue_size = r.llen('emails') if r else 0
-    emails_today = 142 # Placeholder
-    success_rate = 94.5 # Placeholder
-    avg_response_time = "2.3s" # Placeholder
+    # Real Data from Redis
+    if r:
+        queue_size = r.llen('emails')
+        emails_today = int(r.get('emails:today:count') or 0)
+        
+        success_count = int(r.get('emails:status:Success:count') or 0)
+        failed_count = int(r.get('emails:status:Failed:count') or 0)
+        ignored_count = int(r.get('emails:status:Ignored:count') or 0)
+        total_processed = success_count + failed_count + ignored_count
+        
+        success_rate = round((success_count / total_processed * 100), 1) if total_processed > 0 else 0
+        
+        resp_time_sum = float(r.get('emails:response_time:sum') or 0)
+        resp_time_count = int(r.get('emails:response_time:count') or 0)
+        avg_response_time = round(resp_time_sum / resp_time_count, 2) if resp_time_count > 0 else 0
+    else:
+        queue_size, emails_today, success_rate, avg_response_time = 0, 0, 0, 0
 
-    col1.metric("Queue Size", queue_size, "-2")
-    col2.metric("Emails Today", emails_today, "+12")
-    col3.metric("Success Rate", f"{success_rate}%", "+1.2%")
-    col4.metric("Avg Response", avg_response_time, "-0.1s")
+    col1.metric("Queue Size", queue_size)
+    col2.metric("Emails Today", emails_today)
+    col3.metric("Success Rate", f"{success_rate}%")
+    col4.metric("Avg Response", f"{avg_response_time}s")
 
     # Charts
     st.subheader("Activity Overview")
     chart_col1, chart_col2 = st.columns(2)
     
     with chart_col1:
-        # Mock data for chart
+        # Hourly Stats
+        hourly_counts = []
+        if r:
+            for h in range(24):
+                count = int(r.get(f'emails:hour:{h}:count') or 0)
+                hourly_counts.append(count)
+        else:
+            hourly_counts = [0]*24
+
         df_hourly = pd.DataFrame({
             'Hour': range(24),
-            'Emails': [5, 2, 1, 0, 0, 1, 8, 15, 25, 40, 35, 30, 28, 32, 38, 45, 40, 25, 15, 10, 8, 5, 3, 2]
+            'Emails': hourly_counts
         })
         fig_hourly = px.line(df_hourly, x='Hour', y='Emails', title='Emails per Hour')
         st.plotly_chart(fig_hourly, use_container_width=True)
 
     with chart_col2:
         df_status = pd.DataFrame({
-            'Status': ['Success', 'Failed', 'Manual Review'],
-            'Count': [850, 30, 20]
+            'Status': ['Success', 'Failed', 'Ignored'],
+            'Count': [success_count, failed_count, ignored_count]
         })
         fig_pie = px.pie(df_status, values='Count', names='Status', title='Processing Status')
         st.plotly_chart(fig_pie, use_container_width=True)
     
     st.subheader("Recent Activity")
-    st.dataframe(pd.DataFrame({
-        'Time': ['10:01', '10:02', '10:05'],
-        'Sender': ['alice@example.com', 'bob@example.com', 'charlie@example.com'],
-        'Subject': ['Order status', 'Return policy', 'Wrong size'],
-        'Status': ['Replied', 'Replied', 'Queued']
-    }), use_container_width=True)
+    recent_data = []
+    if r:
+        recent_raw = r.lrange('emails:recent', 0, 10)
+        for item in recent_raw:
+            try:
+                recent_data.append(json.loads(item))
+            except:
+                pass
+    
+    if recent_data:
+        st.dataframe(pd.DataFrame(recent_data), use_container_width=True)
+    else:
+        st.info("No recent activity.")
 
 # --- PAGE: KNOWLEDGE BASE ---
 elif page == "Knowledge Base":

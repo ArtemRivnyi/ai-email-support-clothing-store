@@ -6,6 +6,9 @@ import redis
 import requests
 
 from middleware.rate_limiter import init_rate_limiter
+from config.config import Config
+
+Config.validate()
 
 app = Flask(__name__)
 limiter = init_rate_limiter(app)
