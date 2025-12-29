@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard
+  namespace: ai-email-support
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard
+  template:
+    metadata:
+      labels:
+        app: dashboard
+    spec:
+      containers:
+      - name: dashboard
+        image: artemrivnyi/ai-email-dashboard:latest # Replace with actual image
+        ports:
+        - containerPort: 8501
+        envFrom:
+        - secretRef:
+            name: app-secrets
+        env:
+        - name: API_URL
+          value: "http://api-service:80"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard-service
+  namespace: ai-email-support
+spec:
+  selector:
+    app: dashboard
+  ports:
+  - port: 8501
+    targetPort: 8501
