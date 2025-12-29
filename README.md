@@ -116,17 +116,30 @@ The system will start the following services:
 ---
 
 
-## 📧 Gmail Setup
+## 🔐 Gmail API Setup
 
-Before running the system, you need to configure Gmail API access.
+Before running the system, configure Gmail API access:
 
-**Detailed setup guide**: [docs/GMAIL_SETUP.md](docs/GMAIL_SETUP.md)
+### Quick Setup
 
-**Quick start**:
-1. Create Google Cloud project
-2. Enable Gmail API
-3. Download `credentials.json`
-4. Run `python scripts/generate_token.py`
+1. **Get Gmail Credentials**
+```bash
+   # Follow detailed guide
+   cat docs/GMAIL_SETUP.md
+```
+
+2. **Generate Token**
+```bash
+   python scripts/generate_token.py
+```
+
+3. **Configure Environment**
+```bash
+   cp .env.example .env
+   # Edit .env with your paths
+```
+
+📖 **Detailed instructions**: [Gmail Setup Guide](docs/GMAIL_SETUP.md)
 
 ---
 
