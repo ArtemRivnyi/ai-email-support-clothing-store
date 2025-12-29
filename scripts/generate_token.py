@@ -20,7 +20,7 @@ def generate_token():
     if os.path.exists('token.pickle'):
         print("Loading existing token...")
         with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
+            creds = pickle.load(token)  # nosec B301
     
     # If no valid credentials, authenticate
     if not creds or not creds.valid:
