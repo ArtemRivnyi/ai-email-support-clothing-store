@@ -32,10 +32,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run Bandit
-      uses: pyupio/bandit-action@v1
-      with:
-        python_version: 3.10
-        args: -r . -ll
+      run: |
+        pip install bandit
+        bandit -r . -ll
     # - name: Run Trivy (Filesystem)
     #   uses: aquasecurity/trivy-action@master
     #   with:

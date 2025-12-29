@@ -11,7 +11,8 @@ limiter = Limiter(
     key_func=get_remote_address,
     storage_uri=REDIS_URL,
     default_limits=["200 per day", "50 per hour"],
-    strategy="fixed-window"
+    strategy="fixed-window",
+    swallow_errors=True
 )
 
 def init_rate_limiter(app):
