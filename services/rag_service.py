@@ -95,7 +95,7 @@ def build_and_save_faiss_index(documents: List[KnowledgeDocument], embedding_mod
     """
     # Импортируем get_embedding_ollama здесь, чтобы избежать циклической зависимости
     # и чтобы ollama_utils мог быть импортирован без faiss_utils
-    from ollama_utils import get_embedding_ollama
+    from services.llm_service import get_embedding_ollama
 
     if not documents:
         logging.warning("Нет документов для построения FAISS индекса.")
@@ -200,6 +200,9 @@ def check_index_and_documents_match(index_path: str, documents_path: str, curren
         logging.error(f"Ошибка при проверке FAISS индекса и документов: {e}. Индекс будет перестроен.")
         return False
 
+from services.cache_manager import cache
+
+@cache.cached(prefix='rag_search', ttl=3600)
 def search_knowledge_base(index: faiss.Index, query_embedding: List[float], documents: List[KnowledgeDocument], k: int = 1) -> Optional[KnowledgeDocument]:
     """
     Ищет в FAISS индексе наиболее похожий документ.

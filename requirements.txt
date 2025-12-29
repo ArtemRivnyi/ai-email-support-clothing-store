@@ -4,5 +4,12 @@ google-auth-httplib2
 google-auth-oauthlib
 python-dotenv
 requests
-ollama
-numpy 
+faiss-cpu
+numpy
+redis
+rq
+tenacity
+structlog
+prometheus-client
+gunicorn
+flask
