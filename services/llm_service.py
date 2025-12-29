@@ -20,7 +20,7 @@ def get_embedding_ollama(text: str, model: str) -> Optional[List[float]]:
         "prompt": text
     }
     try:
-        response = requests.post(url, headers=headers, data=json.dumps(data))
+        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=30)
         response.raise_for_status() # Вызывает исключение для HTTP ошибок
         return response.json()["embedding"]
     except requests.exceptions.RequestException as e:
@@ -76,7 +76,7 @@ def classify_email(text: str, model: str) -> bool:
         }
     }
     try:
-        response = requests.post(url, headers=headers, data=json.dumps(data))
+        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=30)
         response.raise_for_status()
         generated_text = response.json()["response"].strip().upper() # Приводим к верхнему регистру для надежности
         logging.info(f"Ollama классифицировал письмо как: '{generated_text}'")
@@ -133,7 +133,7 @@ def generate_response_ollama(email_text: str, knowledge_base_answer: str, model:
         }
     }
     try:
-        response = requests.post(url, headers=headers, data=json.dumps(data))
+        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=30)
         response.raise_for_status()
         return response.json()["response"].strip()
     except requests.exceptions.RequestException as e:

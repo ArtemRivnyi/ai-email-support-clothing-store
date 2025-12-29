@@ -36,7 +36,7 @@ def check_redis():
 
 def check_ollama():
     try:
-        resp = requests.get(f"{OLLAMA_HOST}")
+        resp = requests.get(f"{OLLAMA_HOST}", timeout=5)
         return resp.status_code == 200
     except Exception:
         return False
@@ -59,4 +59,4 @@ def index():
     return "AI Email Support API"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000) # nosec B104

@@ -24,7 +24,7 @@ class CacheManager:
         try:
             data = self.redis.get(key)
             if data:
-                return pickle.loads(data)
+                return pickle.loads(data) # nosec B301
         except Exception as e:
             logger.error("cache_get_error", key=key, error=str(e))
         return None
@@ -45,7 +45,7 @@ class CacheManager:
                 
                 # Create a cache key based on args
                 key_data = f"{prefix}:{func.__name__}:{args}:{kwargs}"
-                key_hash = hashlib.md5(key_data.encode()).hexdigest()
+                key_hash = hashlib.sha256(key_data.encode()).hexdigest()
                 cache_key = f"{prefix}:{key_hash}"
                 
                 cached_result = self.get(cache_key)

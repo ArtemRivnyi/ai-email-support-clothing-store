@@ -26,7 +26,7 @@ jobs:
         pylint worker.py api/app.py services/*.py || true
     - name: Run Unit Tests
       run: |
-        pytest tests/unit/ --cov=services --cov-report=xml
+        python -m pytest tests/unit/ --cov=services --cov-report=xml
     - name: Run Integration Tests
       run: |
         pytest tests/integration/

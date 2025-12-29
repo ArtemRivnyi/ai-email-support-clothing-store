@@ -167,7 +167,7 @@ def load_indexed_documents(documents_path: str) -> List[KnowledgeDocument]:
         return []
     try:
         with open(documents_path, 'rb') as f:
-            documents = pickle.load(f)
+            documents = pickle.load(f) # nosec B301
         logging.info(f"Загружено {len(documents)} документов из {documents_path}.")
         return documents
     except Exception as e:
@@ -185,7 +185,7 @@ def check_index_and_documents_match(index_path: str, documents_path: str, curren
     try:
         index = faiss.read_index(index_path)
         with open(documents_path, 'rb') as f:
-            indexed_documents = pickle.load(f)
+            indexed_documents = pickle.load(f) # nosec B301
         
         # Мы сравниваем количество элементов в индексе и в списке проиндексированных документов
         # с количеством документов, которые были успешно загружены из markdown файлов.

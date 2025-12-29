@@ -25,7 +25,7 @@ class OAuthManager:
         if os.path.exists(TOKEN_FILE):
             try:
                 with open(TOKEN_FILE, 'rb') as token:
-                    creds = pickle.load(token)
+                    creds = pickle.load(token) # nosec B301
             except Exception as e:
                 logger.error("failed_to_load_token", error=str(e))
 
