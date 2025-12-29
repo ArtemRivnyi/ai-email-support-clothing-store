@@ -77,7 +77,7 @@ graph TD
 
 ## 📸 Dashboard Preview
 
-![Admin Dashboard Demo](docs/images/demo.gif)
+![Admin Dashboard Demo](docs/images/demo.gif?v=1)
 
 *Real-time monitoring of email processing, queue status, and system health.*
 
