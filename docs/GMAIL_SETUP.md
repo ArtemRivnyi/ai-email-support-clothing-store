@@ -106,3 +106,5 @@ After setup:
 1. Update `.env` with paths
 2. Start the system: `docker-compose up -d`
 3. Check logs: `docker-compose logs -f worker`
+
+
