@@ -61,7 +61,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: artemrivnyi/ai-email-api:latest,artemrivnyi/ai-email-api:${{ github.sha }}
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-email-api:latest,${{ secrets.DOCKERHUB_USERNAME }}/ai-email-api:${{ github.sha }}
     # Repeat for worker and dashboard...
 
   deploy:
