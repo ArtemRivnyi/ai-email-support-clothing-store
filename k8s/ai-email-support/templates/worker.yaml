@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ai-email-support.fullname" . }}-worker
+  labels:
+    app: {{ include "ai-email-support.fullname" . }}-worker
+spec:
+  replicas: {{ .Values.worker.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "ai-email-support.fullname" . }}-worker
+  template:
+    metadata:
+      labels:
+        app: {{ include "ai-email-support.fullname" . }}-worker
+    spec:
+      containers:
+      - name: worker
+        image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}"
+        imagePullPolicy: {{ .Values.worker.image.pullPolicy }}
+        envFrom:
+        - secretRef:
+            name: {{ include "ai-email-support.fullname" . }}-secrets
+        resources:
+          {{- toYaml .Values.worker.resources | nindent 10 }}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "ai-email-support.fullname" . }}-worker-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "ai-email-support.fullname" . }}-worker
+  minReplicas: {{ .Values.worker.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.worker.autoscaling.maxReplicas }}
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: {{ .Values.worker.autoscaling.targetCPUUtilizationPercentage }}

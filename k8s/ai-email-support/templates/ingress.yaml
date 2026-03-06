@@ -1,0 +1,33 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "ai-email-support.fullname" . }}-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  tls:
+  - hosts:
+    - {{ .Values.ingress.host }}
+    secretName: {{ include "ai-email-support.fullname" . }}-tls
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+        paths:
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "ai-email-support.fullname" . }}-api
+              port:
+                number: {{ .Values.api.service.port }}
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "ai-email-support.fullname" . }}-dashboard
+              port:
+                number: {{ .Values.dashboard.service.port }}
+{{- end }}
