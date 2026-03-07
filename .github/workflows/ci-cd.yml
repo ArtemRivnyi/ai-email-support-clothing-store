@@ -30,6 +30,12 @@ jobs:
     - name: Run Integration Tests
       run: |
         python -m pytest tests/integration/
+    - name: Setup Helm
+      uses: azure/setup-helm@v4.2.0
+      with:
+        version: v3.14.0
+    - name: Lint Helm Chart
+      run: helm lint k8s/ai-email-support
 
   security:
     runs-on: ubuntu-latest
@@ -68,14 +74,21 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    defaults:
+      run:
+        working-directory: terraform/eks-cluster
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Kubectl
-      uses: azure/setup-kubectl@v3
-    # - name: Deploy to K8s
-    #   env:
-    #     KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+    # - name: Deploy Infrastructure and Helm Chart (Terraform Apply)
     #   run: |
-    #     mkdir -p $HOME/.kube
-    #     echo "$KUBE_CONFIG" | base64 -d > $HOME/.kube/config
-    #     kubectl apply -f k8s/
+    #     terraform init
+    #     terraform apply -auto-approve -var="gemini_api_key=${{ secrets.GEMINI_API_KEY }}" -var="openai_api_key=${{ secrets.OPENAI_API_KEY }}"
+    #   # NOTE: Uncomment to enable automatic deployment to AWS EKS. (Beware of AWS billing!)

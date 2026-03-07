@@ -1,0 +1,111 @@
+namespace: ai-email-support
+
+# Global Secrets
+secret:
+  geminiApiKey: ""
+  openaiApiKey: ""
+  masterApiKey: "change-me-in-production"
+  jwtSecret: "change-me-in-production"
+
+# Ingress Configuration
+ingress:
+  enabled: true
+  className: "nginx"
+  host: "api.ai-email-support.local"
+
+# API Service
+api:
+  replicaCount: 1
+  image:
+    repository: "ai-email-api"
+    pullPolicy: "IfNotPresent"
+    tag: "latest"
+  service:
+    port: 80
+    containerPort: 5000
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "200m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+# Worker Service
+worker:
+  replicaCount: 2
+  image:
+    repository: "artemrivnyi/ai-email-worker"
+    pullPolicy: "IfNotPresent"
+    tag: "latest"
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "1Gi"
+      cpu: "1000m"
+  autoscaling:
+    minReplicas: 2
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 70
+
+# Dashboard Service
+dashboard:
+  replicaCount: 1
+  image:
+    repository: "artemrivnyi/ai-email-dashboard"
+    pullPolicy: "IfNotPresent"
+    tag: "latest"
+  service:
+    port: 8501
+    containerPort: 8501
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "200m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+# Redis Cache Service
+redis:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: "redis"
+    tag: "7-alpine"
+    pullPolicy: "IfNotPresent"
+  service:
+    port: 6379
+  persistence:
+    storage: "5Gi"
+    accessMode: "ReadWriteOnce"
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+# Ollama Model Service
+ollama:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: "ollama/ollama"
+    tag: "latest"
+    pullPolicy: "IfNotPresent"
+  service:
+    port: 11434
+  persistence:
+    storage: "10Gi"
+    accessMode: "ReadWriteOnce"
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "1000m"
+    limits:
+      memory: "4Gi"
+      cpu: "2000m"

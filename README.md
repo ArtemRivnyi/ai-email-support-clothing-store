@@ -115,6 +115,30 @@ The system will start the following services:
 
 ---
 
+## ☁️ Enterprise Infrastructure (Kubernetes & IaC)
+
+This project includes fully configured **Infrastructure as Code (IaC)** for deploying to an AWS EKS Cluster using Terraform and a comprehensive **Helm Chart**.
+
+### 1. Provision AWS EKS Cluster
+The `terraform/eks-cluster` directory contains the HCL code to spin up a production-ready VPC and AWS EKS cluster.
+```bash
+cd terraform/eks-cluster
+terraform init
+terraform apply -var="gemini_api_key=YOUR_KEY" -var="openai_api_key=YOUR_KEY"
+```
+
+### 2. Helm Chart Deployment
+The `k8s/ai-email-support` directory contains a parameterized Helm Chart. It is automatically deployed by Terraform via the `helm_release` resource, but can also be installed manually:
+```bash
+helm upgrade --install ai-email-support ./k8s/ai-email-support \
+  --namespace ai-email-support --create-namespace \
+  --set secret.geminiApiKey="YOUR_KEY" \
+  --set secret.openaiApiKey="YOUR_KEY"
+```
+*The Helm chart fully parameterizes AI models, replicas, resource limits, and persistent storage.*
+
+---
+
 
 ## 🔐 Gmail API Setup
 

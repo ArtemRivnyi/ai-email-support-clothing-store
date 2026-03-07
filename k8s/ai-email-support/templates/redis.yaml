@@ -1,0 +1,59 @@
+{{- if .Values.redis.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ai-email-support.fullname" . }}-redis
+  labels:
+    app: {{ include "ai-email-support.fullname" . }}-redis
+spec:
+  replicas: {{ .Values.redis.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "ai-email-support.fullname" . }}-redis
+  template:
+    metadata:
+      labels:
+        app: {{ include "ai-email-support.fullname" . }}-redis
+    spec:
+      containers:
+      - name: redis
+        image: "{{ .Values.redis.image.repository }}:{{ .Values.redis.image.tag }}"
+        imagePullPolicy: {{ .Values.redis.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.redis.service.port }}
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+        resources:
+          {{- toYaml .Values.redis.resources | nindent 10 }}
+      volumes:
+      - name: redis-data
+        persistentVolumeClaim:
+          claimName: {{ include "ai-email-support.fullname" . }}-redis-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ai-email-support.fullname" . }}-redis
+  labels:
+    app: {{ include "ai-email-support.fullname" . }}-redis
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ include "ai-email-support.fullname" . }}-redis
+  ports:
+  - port: {{ .Values.redis.service.port }}
+    targetPort: {{ .Values.redis.service.port }}
+    protocol: TCP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "ai-email-support.fullname" . }}-redis-pvc
+spec:
+  accessModes:
+    - {{ .Values.redis.persistence.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.redis.persistence.storage }}
+{{- end }}

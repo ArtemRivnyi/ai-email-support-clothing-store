@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ai-email-support.fullname" . }}-api
+  labels:
+    app: {{ include "ai-email-support.fullname" . }}-api
+spec:
+  replicas: {{ .Values.api.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "ai-email-support.fullname" . }}-api
+  template:
+    metadata:
+      labels:
+        app: {{ include "ai-email-support.fullname" . }}-api
+    spec:
+      containers:
+      - name: api
+        image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
+        imagePullPolicy: {{ .Values.api.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.api.service.containerPort }}
+        envFrom:
+        - secretRef:
+            name: {{ include "ai-email-support.fullname" . }}-secrets
+        resources:
+          {{- toYaml .Values.api.resources | nindent 10 }}
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.api.service.containerPort }}
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.api.service.containerPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ai-email-support.fullname" . }}-api
+  labels:
+    app: {{ include "ai-email-support.fullname" . }}-api
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ include "ai-email-support.fullname" . }}-api
+  ports:
+  - port: {{ .Values.api.service.port }}
+    targetPort: {{ .Values.api.service.containerPort }}
+    protocol: TCP

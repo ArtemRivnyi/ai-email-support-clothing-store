@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ai-email-support.fullname" . }}-dashboard
+  labels:
+    app: {{ include "ai-email-support.fullname" . }}-dashboard
+spec:
+  replicas: {{ .Values.dashboard.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "ai-email-support.fullname" . }}-dashboard
+  template:
+    metadata:
+      labels:
+        app: {{ include "ai-email-support.fullname" . }}-dashboard
+    spec:
+      containers:
+      - name: dashboard
+        image: "{{ .Values.dashboard.image.repository }}:{{ .Values.dashboard.image.tag }}"
+        imagePullPolicy: {{ .Values.dashboard.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.dashboard.service.containerPort }}
+        envFrom:
+        - secretRef:
+            name: {{ include "ai-email-support.fullname" . }}-secrets
+        env:
+        - name: API_URL
+          value: "http://{{ include "ai-email-support.fullname" . }}-api:{{ .Values.api.service.port }}"
+        resources:
+          {{- toYaml .Values.dashboard.resources | nindent 10 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ai-email-support.fullname" . }}-dashboard
+  labels:
+    app: {{ include "ai-email-support.fullname" . }}-dashboard
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ include "ai-email-support.fullname" . }}-dashboard
+  ports:
+  - port: {{ .Values.dashboard.service.port }}
+    targetPort: {{ .Values.dashboard.service.containerPort }}
+    protocol: TCP
