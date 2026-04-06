@@ -21,3 +21,8 @@ token.pickle
 old_token.pickle
 credentials.json
 embeddings/
+
+# Coverage artifacts
+.coverage
+coverage.xml
+htmlcov/
