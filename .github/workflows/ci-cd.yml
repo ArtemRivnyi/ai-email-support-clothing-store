@@ -70,25 +70,25 @@ jobs:
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/ai-email-api:latest,${{ secrets.DOCKERHUB_USERNAME }}/ai-email-api:${{ github.sha }}
     # Repeat for worker and dashboard...
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    defaults:
-      run:
-        working-directory: terraform/eks-cluster
-    steps:
-    - uses: actions/checkout@v3
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
-    # - name: Deploy Infrastructure and Helm Chart (Terraform Apply)
-    #   run: |
-    #     terraform init
-    #     terraform apply -auto-approve -var="gemini_api_key=${{ secrets.GEMINI_API_KEY }}" -var="openai_api_key=${{ secrets.OPENAI_API_KEY }}"
-    #   # NOTE: Uncomment to enable automatic deployment to AWS EKS. (Beware of AWS billing!)
+#  deploy:
+#    needs: build
+#    runs-on: ubuntu-latest
+#    if: github.ref == 'refs/heads/main'
+#    defaults:
+#      run:
+#        working-directory: terraform/eks-cluster
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Configure AWS Credentials
+#      uses: aws-actions/configure-aws-credentials@v4
+#      with:
+#        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        aws-region: us-east-1
+#    - name: Setup Terraform
+#      uses: hashicorp/setup-terraform@v3
+#    # - name: Deploy Infrastructure and Helm Chart (Terraform Apply)
+#    #   run: |
+#    #     terraform init
+#    #     terraform apply -auto-approve -var="gemini_api_key=${{ secrets.GEMINI_API_KEY }}" -var="openai_api_key=${{ secrets.OPENAI_API_KEY }}"
+#    #   # NOTE: Uncomment to enable automatic deployment to AWS EKS. (Beware of AWS billing!)
