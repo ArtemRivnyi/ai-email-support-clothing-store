@@ -9,7 +9,138 @@ import time
 from datetime import datetime
 
 # Configuration
-st.set_page_config(page_title="AI Email Support Admin", layout="wide", page_icon="🤖")
+st.set_page_config(page_title="AI Email Support Admin", layout="wide", page_icon="🤖", initial_sidebar_state="expanded")
+
+import streamlit.components.v1 as components
+
+# --- VIBECODING PREMIUM CSS & MATRIX ---
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+html, body, [class*="st-"] {
+    font-family: 'Space Grotesk', sans-serif !important;
+}
+
+/* Base background transparent to show matrix */
+.stApp {
+    background: #050505 !important;
+}
+
+/* Header */
+header[data-testid="stHeader"] {
+    background: rgba(10, 10, 15, 0.6) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background: rgba(15, 23, 42, 0.4) !important;
+    backdrop-filter: blur(12px) !important;
+    border-right: 1px solid rgba(102, 126, 234, 0.2) !important;
+}
+
+/* Metric Cards & DataFrames */
+div[data-testid="metric-container"], .stDataFrame, .stForm {
+    background: rgba(15, 23, 42, 0.4) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(102, 126, 234, 0.2) !important;
+    border-radius: 12px !important;
+    padding: 15px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+    transition: all 0.3s ease;
+}
+
+div[data-testid="metric-container"]:hover {
+    border-color: rgba(102, 126, 234, 0.6) !important;
+    box-shadow: 0 0 15px rgba(102, 126, 234, 0.3) !important;
+    transform: translateY(-2px);
+}
+
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
+    transition: all 0.3s ease !important;
+    border-radius: 8px !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6) !important;
+}
+
+/* Inputs */
+.stTextInput > div > div > input, .stTextArea > div > div > textarea {
+    background: rgba(10, 15, 30, 0.6) !important;
+    border: 1px solid rgba(102, 126, 234, 0.3) !important;
+    color: white !important;
+}
+
+.stTextInput > div > div > input:focus, .stTextArea > div > div > textarea:focus {
+    border-color: #667eea !important;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.3) !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+components.html("""
+    <canvas id="matrix-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; background-color: #050505;"></canvas>
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let columns;
+        const charSize = 14;
+        let drops = [];
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            columns = Math.floor(width / charSize);
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.random() * -100;
+            }
+        }
+        function draw() {
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.1)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(102, 126, 234, 0.25)'; 
+            ctx.font = charSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = String.fromCharCode(Math.random() * 128);
+                const x = i * charSize;
+                const y = drops[i] * charSize;
+                ctx.fillText(text, x, y);
+                if (y > height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        window.addEventListener('resize', resize);
+        resize();
+        setInterval(draw, 33);
+        
+        // Force the canvas container to be fixed over the whole screen
+        try {
+            window.parent.document.querySelector('.stApp').style.background = 'transparent';
+        } catch(e) {}
+        const iframe = window.frameElement;
+        if(iframe) {
+            iframe.style.position = 'fixed';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+            iframe.style.width = '100vw';
+            iframe.style.height = '100vh';
+            iframe.style.zIndex = '0';
+            iframe.style.pointerEvents = 'none';
+        }
+    </script>
+""", height=0, width=0)
 
 REDIS_URL = os.getenv('REDIS_URL', 'redis://redis:6379/0')
 API_URL = os.getenv('API_URL', 'http://api:5000')
